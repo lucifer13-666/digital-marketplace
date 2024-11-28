@@ -14,3 +14,6 @@
 1. Tiptap: thay đổi các thông tin text editor (thẻ h1,h2,code,Bold ...)
    - https://tiptap.dev/docs/editor/getting-started/install
    - npm install @tiptap/react @tiptap/pm @tiptap/starter-kit
+
+2. Uploadthing : 
+    - https://uploadthing.com/dashboard/lucifer13-666-personal-team
