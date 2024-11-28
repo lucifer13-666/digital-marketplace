@@ -1,15 +1,19 @@
+"use client";
 import { TipTapEditor } from "@/components/Editor";
 import SelectCategory from "@/components/SelectCategory";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { UploadDropzone } from "@/lib/uploadthing";
 import React from "react";
 
 export default function Sell() {
@@ -56,7 +60,24 @@ export default function Sell() {
               <Label>Description</Label>
               <TipTapEditor />
             </div>
+
+            {/* IMAGES */}
+            <div className="flex flex-col gap-y-2">
+              <Label>Product Images</Label>
+              <UploadDropzone endpoint="imageUploader" />
+            </div>
+
+            {/* FILE */}
+            <div className="flex flex-col gap-y-2">
+              <Label>Product File</Label>
+              <UploadDropzone endpoint="productFileUploader" />
+            </div>
           </CardContent>
+
+          {/* Footer */}
+          <CardFooter className="mt-5">
+            <Button>Submit form</Button>
+          </CardFooter>
         </form>
       </Card>
     </section>
