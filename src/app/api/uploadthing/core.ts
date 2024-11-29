@@ -32,7 +32,7 @@ export const ourFileRouter = {
     }),
 
   // CONFIG FOR ZIP UPLOAD
-  productFileUploader: f({ "application/zip": { maxFileCount: 1 } })
+  productFileUploader: f({ blob: { maxFileCount: 1 } })
     .middleware(async ({ req }) => {
       // This code runs on your server before upload
       const { getUser } = getKindeServerSession();

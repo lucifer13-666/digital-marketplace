@@ -1,7 +1,12 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { EditorContent, useEditor, type Editor } from "@tiptap/react";
+import {
+  EditorContent,
+  JSONContent,
+  useEditor,
+  type Editor,
+} from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { useEffect, useState } from "react";
 
@@ -69,7 +74,13 @@ export const MenuBar = ({ editor }: { editor: Editor | null }) => {
   );
 };
 
-export function TipTapEditor() {
+export function TipTapEditor({
+  setJson,
+  json,
+}: {
+  setJson: any;
+  json: JSONContent | null;
+}) {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -78,11 +89,14 @@ export function TipTapEditor() {
 
   const editor = useEditor({
     extensions: [StarterKit],
-    content: "<p>Hello, world!</p>",
+    content: json,
     editorProps: {
       attributes: {
         class: "focus:outline-none min-h-[150px] prose prose-sm sm:prose-base",
       },
+    },
+    onUpdate: ({ editor }) => {
+      setJson(editor.getJSON());
     },
     immediatelyRender: false, // Ngăn SSR render ngay lập tức
   });
