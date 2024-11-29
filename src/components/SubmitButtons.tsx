@@ -4,7 +4,7 @@ import { Loader2 } from "lucide-react";
 import React from "react";
 import { useFormStatus } from "react-dom";
 
-export default function SubmitButtons() {
+export default function SubmitButtons({ title }: { title: string }) {
   const { pending } = useFormStatus();
   return (
     <>
@@ -14,7 +14,7 @@ export default function SubmitButtons() {
           Please Wait
         </Button>
       ) : (
-        <Button type="submit">Create Product</Button>
+        <Button type="submit">{title}</Button>
       )}
     </>
   );

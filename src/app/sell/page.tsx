@@ -183,7 +183,7 @@ export default function Sell() {
 
           {/* Footer */}
           <CardFooter className="mt-5">
-            <SubmitButtons />
+            <SubmitButtons title="Create Product" />
           </CardFooter>
         </form>
       </Card>

@@ -50,10 +50,8 @@ export default function UserNav({ email, name, userImage }: iAppProps) {
           <DropdownMenuItem asChild>
             <Link href={"/sell"}>Sell your Product</Link>
           </DropdownMenuItem>
-          <DropdownMenuItem>Billing</DropdownMenuItem>
-          <DropdownMenuItem>Settings</DropdownMenuItem>
-          <DropdownMenuItem>
-            Keyboard shortcuts
+          <DropdownMenuItem asChild>
+            <Link href={"/settings"}>Settings</Link>
             {/* <DropdownMenuShortcut>⌘K</DropdownMenuShortcut> */}
           </DropdownMenuItem>
         </DropdownMenuGroup>
