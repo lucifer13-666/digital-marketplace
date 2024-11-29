@@ -37,6 +37,7 @@ export default function ProductCard({
                   alt="Product image"
                   src={image}
                   fill
+                  sizes="100%"
                   className="object-cover w-full h-full rounded-lg"
                 />
               </div>
