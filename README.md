@@ -10,6 +10,8 @@
      - npm i @kinde-oss/kinde-auth-nextjs
    - User SignUp Kinde -> stores user in kinde db
 
+2. Khi dùng images nhớ khai báo trong next.config.mjs
+
 ## Package
 
 1. Tiptap: thay đổi các thông tin text editor (thẻ h1,h2,code,Bold ...)
