@@ -1,5 +1,4 @@
 import ProductDescription from "@/components/ProductDescription";
-import { Button } from "@/components/ui/button";
 import {
   Carousel,
   CarouselContent,
@@ -11,6 +10,8 @@ import prisma from "@/lib/db";
 import Image from "next/image";
 import React from "react";
 import { JSONContent } from "@tiptap/react";
+import { BuyProduct } from "@/app/actions";
+import { BuyButton } from "@/components/SubmitButtons";
 
 const getData = async (id: string) => {
   const data = await prisma.product.findUnique({
@@ -78,9 +79,10 @@ export default async function ProductPage({
         <p className="mt-2 text-muted-foreground">{data?.smallDescription}</p>
 
         {/* price */}
-        <Button size={"lg"} className="w-full mt-10">
-          Buy for ${data?.price}
-        </Button>
+        <form action={BuyProduct}>
+          <input type="hidden" name="id" value={data?.id} />
+          <BuyButton price={data?.price as number} />
+        </form>
 
         {/* details */}
         <div className="border-t border-gray-200 mt-10 pt-10">

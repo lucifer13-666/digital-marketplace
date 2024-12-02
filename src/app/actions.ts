@@ -1,8 +1,10 @@
 "use server";
 
 import prisma from "@/lib/db";
+import { stripe } from "@/lib/stripe";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { CategoryTypes } from "@prisma/client";
+import { redirect } from "next/navigation";
 import { z } from "zod";
 
 export type State = {
@@ -138,4 +140,43 @@ export async function UpdateUserSettings(prevState: any, formData: FormData) {
   };
 
   return state;
+}
+
+export async function BuyProduct(formData: FormData) {
+  const id = formData.get("id") as string;
+  const data = await prisma.product.findUnique({
+    where: {
+      id: id,
+    },
+    select: {
+      id: true,
+      name: true,
+      price: true,
+      smallDescription: true,
+      category: true,
+      images: true,
+    },
+  });
+
+  const session = await stripe.checkout.sessions.create({
+    mode: "payment",
+    line_items: [
+      {
+        price_data: {
+          currency: "usd",
+          product_data: {
+            name: data?.name as string,
+            images: data?.images,
+            description: data?.smallDescription,
+          },
+          unit_amount: Math.round((data?.price as number) * 100),
+        },
+        quantity: 1,
+      },
+    ],
+    success_url: "http://localhost:3000/payment/success",
+    cancel_url: "http://localhost:3000/payment/cancel",
+  });
+
+  return redirect(session.url as string);
 }

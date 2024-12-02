@@ -37,3 +37,4 @@
 
 4. stripe : payment
    - https://dashboard.stripe.com/connect/set-up/profile
+   - https://dashboard.stripe.com/test/payments
