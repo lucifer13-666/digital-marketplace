@@ -1,4 +1,4 @@
-import { SettingsForm } from "@/components/SettingsForm";
+import { SettingsForm } from "@/components/form/SettingsForm";
 import { Card } from "@/components/ui/card";
 import prisma from "@/lib/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
