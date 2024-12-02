@@ -24,6 +24,7 @@
    - https://uploadthing.com/dashboard/lucifer13-666-personal-team
 
 3. Supabase : quản lý database
+
    - Lưu trữ data user khi signup qua Kinde
    - Dashboard :
      - https://supabase.com/dashboard/project/kunbidincjxvabmkdoer/settings/database
@@ -33,3 +34,6 @@
      - npx prisma init
      - npx prisma db push
      - npx prisma studio
+
+4. stripe : payment
+   - https://dashboard.stripe.com/connect/set-up/profile
