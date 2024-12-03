@@ -178,8 +178,14 @@ export async function BuyProduct(formData: FormData) {
         destination: data?.User?.connectedAccountId as string,
       },
     },
-    success_url: "http://localhost:3000/payment/success",
-    cancel_url: "http://localhost:3000/payment/cancel",
+    success_url:
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:3000/payment/success"
+        : ((process.env.URL_DEPLOY_APP + "/payment/success") as string),
+    cancel_url:
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:3000/payment/cancel"
+        : ((process.env.URL_DEPLOY_APP + "/payment/cancel") as string),
   });
 
   return redirect(session.url as string);
@@ -203,8 +209,15 @@ export async function CreateStripeAccountLink() {
 
   const accountLink = await stripe.accountLinks.create({
     account: data?.connectedAccountId as string,
-    refresh_url: "http://localhost:3000/billing",
-    return_url: `http://localhost:3000/return/${data?.connectedAccountId}`,
+    refresh_url:
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:3000/billing"
+        : ((process.env.URL_DEPLOY_APP + "/billing") as string),
+    return_url:
+      process.env.NODE_ENV === "development"
+        ? `http://localhost:3000/return/${data?.connectedAccountId}`
+        : ((process.env.URL_DEPLOY_APP +
+            `/return/${data?.connectedAccountId}`) as string),
     type: "account_onboarding",
   });
 

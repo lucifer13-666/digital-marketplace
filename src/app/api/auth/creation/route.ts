@@ -2,9 +2,11 @@ import prisma from "@/lib/db";
 import { stripe } from "@/lib/stripe";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { NextResponse } from "next/server";
+import { unstable_noStore as noStore } from "next/cache";
 
 // router gọi khi kinde login (KINDE_POST_LOGIN_REDIRECT_URL=http://localhost:3000/api/auth/creation) , lưu data lại vào prisma
 export async function GET() {
+  noStore(); // Đảm bảo không cache
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
@@ -47,5 +49,9 @@ export async function GET() {
     });
   }
 
-  return NextResponse.redirect("http://localhost:3000");
+  return NextResponse.redirect(
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:3000"
+      : (process.env.URL_DEPLOY_APP as string)
+  );
 }
