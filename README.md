@@ -47,4 +47,19 @@
      - Kiểm tra : stripe version
      - Login : stripe login
 
-   - stripe listen --forward-to localhost:3000/api/stripe/connect --forward-connect-to localhost:3000/api/stripe/connect
+   - lấy code : STRIPE_CONNECT_WEBHOOK_SECRET
+     - stripe listen --forward-to localhost:3000/api/stripe/connect --forward-connect-to localhost:3000/api/stripe/connect
+   - lấy code : STRIPE_SECRET_WEBHOOK
+     - stripe listen --forward-to http://localhost:3000/api/stripe
+
+5. resend : gửi mail , React Email : tạo giao diện(template)
+
+   - https://resend.com/home
+   - https://react.email/docs/getting-started/automatic-setup
+
+     - cd react-email-starter
+     - npm install
+     - npm run dev
+
+   - thêm webhook vào stripe :
+     - https://dashboard.stripe.com/test/webhooks/create?events=checkout.session.completed
