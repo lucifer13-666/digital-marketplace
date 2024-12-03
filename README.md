@@ -36,5 +36,15 @@
      - npx prisma studio
 
 4. stripe : payment
+
    - https://dashboard.stripe.com/connect/set-up/profile
    - https://dashboard.stripe.com/test/payments
+   - stripe CLI
+
+     - download file window (stripe_1.22.0_windows_x86_64.zip) : https://github.com/stripe/stripe-cli/releases/tag/v1.22.0
+     - lưu vào C:\stripe-cli
+     - Edit the system environment variables -> Advanced : Environment Variables -> Tìm mục Path trong "System variables", sau đó chọn Edit. -> Nhấn New và nhập đường dẫn đến thư mục chứa stripe.exe (ví dụ: C:\stripe-cli).
+     - Kiểm tra : stripe version
+     - Login : stripe login
+
+   - stripe listen --forward-to localhost:3000/api/stripe/connect --forward-connect-to localhost:3000/api/stripe/connect

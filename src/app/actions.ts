@@ -77,14 +77,7 @@ export async function SellProduct(prevState: any, formData: FormData) {
     },
   });
 
-  const state: State = {
-    status: "success",
-    message: "Successfully added your product",
-  };
-
-  return state;
-
-  //   return redirect(`/product/${data.id}`);
+  return redirect(`/product/${data.id}`);
 }
 
 const userSettingsSchema = z.object({
@@ -155,6 +148,11 @@ export async function BuyProduct(formData: FormData) {
       smallDescription: true,
       category: true,
       images: true,
+      User: {
+        select: {
+          connectedAccountId: true,
+        },
+      },
     },
   });
 
@@ -174,6 +172,12 @@ export async function BuyProduct(formData: FormData) {
         quantity: 1,
       },
     ],
+    payment_intent_data: {
+      application_fee_amount: Math.round((data?.price as number) * 100) * 0.1,
+      transfer_data: {
+        destination: data?.User?.connectedAccountId as string,
+      },
+    },
     success_url: "http://localhost:3000/payment/success",
     cancel_url: "http://localhost:3000/payment/cancel",
   });
@@ -205,4 +209,27 @@ export async function CreateStripeAccountLink() {
   });
 
   return redirect(accountLink.url as string);
+}
+
+export async function GetStripeDashboardLink() {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+  if (!user) {
+    throw new Error("Unauthorized");
+  }
+
+  const data = await prisma.user.findUnique({
+    where: {
+      id: user.id,
+    },
+    select: {
+      connectedAccountId: true,
+    },
+  });
+
+  const loginLink = await stripe.accounts.createLoginLink(
+    data?.connectedAccountId as string
+  );
+
+  return redirect(loginLink.url);
 }

@@ -1,4 +1,4 @@
-import { CreateStripeAccountLink } from "@/app/actions";
+import { CreateStripeAccountLink, GetStripeDashboardLink } from "@/app/actions";
 import SubmitButtons from "@/components/SubmitButtons";
 import {
   Card,
@@ -40,9 +40,16 @@ export default async function BillingPage() {
         </CardHeader>
 
         <CardContent>
+          {/* Liên kết tài khoản với stripe */}
           {data?.stripeConnectedLinked === false && (
             <form action={CreateStripeAccountLink}>
               <SubmitButtons title="Link your Accout to stripe" />
+            </form>
+          )}
+          {/* Xem tài khoản với stripe */}
+          {data?.stripeConnectedLinked === true && (
+            <form action={GetStripeDashboardLink}>
+              <SubmitButtons title="View Dashboard" />
             </form>
           )}
         </CardContent>
